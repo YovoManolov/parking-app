@@ -2,7 +2,7 @@ import { DynamoDBClient, ScanCommand, UpdateItemCommand } from "@aws-sdk/client-
 
 // AWS DynamoDB Setup
 const dynamoDB = new DynamoDBClient({
-    region: process.env.AWS_REGION,
+    region: process.env.DYNAMO_REGION,
     credentials: {
       accessKeyId: process.env.DYNAMO_ACCESS_KEY,
       secretAccessKey: process.env.DYNAMO_SECRET_KEY,

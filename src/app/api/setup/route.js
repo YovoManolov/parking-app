@@ -2,7 +2,7 @@ import { DynamoDBClient, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb"
 
 // AWS DynamoDB Client Setup (v3)
 const dynamoDB = new DynamoDBClient({
-  region: process.env.AWS_REGION,
+  region: process.env.DYNAMO_REGION,
   credentials: {
     accessKeyId: process.env.DYNAMO_ACCESS_KEY,
     secretAccessKey: process.env.DYNAMO_SECRET_KEY,
