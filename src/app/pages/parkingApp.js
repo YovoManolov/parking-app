@@ -44,6 +44,8 @@ export default function ParkingApp() {
       gridTemplateRows: "auto auto auto",
       gap: "10px",
       width: "300px",
+      margin: "auto",
+      padding: "20px",
     }}>
       {/* First Row */}
       <div style={slotStyle(parkingStatus["P1"])} onClick={() => toggleStatus("P1")}>P1 ({parkingStatus["P1"]})</div>
