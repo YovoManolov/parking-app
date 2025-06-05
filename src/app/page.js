@@ -1,3 +1,3 @@
-import ParkingApp from "./parkingApp";
+import ParkingApp from "./pages/parkingApp";
 
 export default ParkingApp;

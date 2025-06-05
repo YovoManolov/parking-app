@@ -1,20 +1,17 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ParkingApp() {
 
-  
-  const [parkingStatus, setParkingStatus] = useState({
-    P1: "free",
-    P2: "used",
-    P3: "free",
-    P4: "used",
-    P5: "free",
-    P6: "used",
-    P7: "free",
-    P8: "free",
-  });
+  const [parkingStatus, setParkingStatus] = useState({});
+
+    // Fetch parking status from DynamoDB when the component mounts
+    useEffect(() => {
+      fetch("/api/parking")
+        .then((res) => res.json())
+        .then((data) => setParkingStatus(data));
+    }, []);
 
   const toggleStatus = (slot) => {
     const newStatus = parkingStatus[slot] === "free" ? "used" : "free";

@@ -1,45 +1,53 @@
-import AWS from "aws-sdk";
+import { DynamoDBClient, ScanCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 
 // AWS DynamoDB Setup
-const dynamoDB = new AWS.DynamoDB.DocumentClient({
-  region: "eu-central-1",
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+const dynamoDB = new DynamoDBClient({
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    }
 });
 
-// Fetch Parking Statuses
 export async function GET() {
-  const params = {
-    TableName: "ParkingSpots",
-  };
+  const params = { TableName: "ParkingSpots" };
 
   try {
-    const data = await dynamoDB.scan(params).promise();
-    return Response.json({ parkingSpots: data.Items });
+    const command = new ScanCommand(params);
+    const data = await dynamoDB.send(command);
+
+    const formattedData = data.Items.reduce((acc, item) => {
+      acc[item.id.S] = item.status.S;
+      return acc;
+    }, {});
+
+    return Response.json(formattedData);
   } catch (error) {
-    return Response.json({ error: "Failed to fetch parking spots" }, { status: 500 });
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
 
 // Update Parking Status
 export async function POST(req) {
   const { id, newStatus } = await req.json();
-  
+
   const params = {
     TableName: "ParkingSpots",
-    Key: { id },
-    UpdateExpression: "set #status = :s, updatedAt = :u",
+    Key: { id: { S: id } }, // ✅ Fixed: Defined attribute properly
+    UpdateExpression: "SET #status = :s, updatedAt = :u",
     ExpressionAttributeNames: { "#status": "status" },
     ExpressionAttributeValues: {
-      ":s": newStatus,
-      ":u": new Date().toISOString(),
+      ":s": { S: newStatus }, // ✅ Fixed: Ensured explicit type definition
+      ":u": { S: new Date().toISOString() },
     },
   };
 
   try {
-    await dynamoDB.update(params).promise();
-    return Response.json({ message: "Parking spot updated" });
+    const command = new UpdateItemCommand(params);
+    await dynamoDB.send(command);
+    return Response.json({ message: `Parking spot ${id} updated to ${newStatus}` });
   } catch (error) {
-    return Response.json({ error: "Failed to update parking spot" }, { status: 500 });
+    console.error("DynamoDB Update Error:", error);
+    return Response.json({ error: error.message }, { status: 500 });
   }
 }
