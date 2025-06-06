@@ -13,6 +13,7 @@ export async function GET() {
   const params = { TableName: "ParkingSpots" };
 
   try {
+    console.log(credentials);
     const command = new ScanCommand(params);
     const data = await dynamoDB.send(command);
 
@@ -33,16 +34,17 @@ export async function POST(req) {
 
   const params = {
     TableName: "ParkingSpots",
-    Key: { id: { S: id } }, // ✅ Fixed: Defined attribute properly
+    Key: { id: { S: id } },
     UpdateExpression: "SET #status = :s, updatedAt = :u",
     ExpressionAttributeNames: { "#status": "status" },
     ExpressionAttributeValues: {
-      ":s": { S: newStatus }, // ✅ Fixed: Ensured explicit type definition
+      ":s": { S: newStatus }, 
       ":u": { S: new Date().toISOString() },
     },
   };
 
   try {
+    console.log(credentials);
     const command = new UpdateItemCommand(params);
     await dynamoDB.send(command);
     return Response.json({ message: `Parking spot ${id} updated to ${newStatus}` });
