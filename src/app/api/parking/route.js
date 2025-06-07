@@ -13,7 +13,7 @@ export async function GET() {
   const params = { TableName: "ParkingSpots" };
 
   try {
-    console.log(credentials);
+    console.log("Current Credentials:", dynamoDB.config.credentials);
     const command = new ScanCommand(params);
     const data = await dynamoDB.send(command);
 
@@ -44,7 +44,7 @@ export async function POST(req) {
   };
 
   try {
-    console.log(credentials);
+    console.log("Current Credentials:", dynamoDB.config.credentials);
     const command = new UpdateItemCommand(params);
     await dynamoDB.send(command);
     return Response.json({ message: `Parking spot ${id} updated to ${newStatus}` });
