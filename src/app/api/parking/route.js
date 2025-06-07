@@ -6,7 +6,7 @@ const dynamoDB = new DynamoDBClient({
     credentials: {
       accessKeyId: process.env.DYNAMO_ACCESS_KEY,
       secretAccessKey: process.env.DYNAMO_SECRET_KEY,
-    }
+    } 
 });
 
 export async function GET() {
@@ -14,6 +14,7 @@ export async function GET() {
 
   try {
     console.log("Current Credentials:", dynamoDB.config.credentials);
+    
     const command = new ScanCommand(params);
     const data = await dynamoDB.send(command);
 
