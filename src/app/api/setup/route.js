@@ -1,12 +1,10 @@
 import { DynamoDBClient, BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 
 // AWS DynamoDB Client Setup (v3)
 const dynamoDB = new DynamoDBClient({
-  region: process.env.DYNAMO_REGION,
-  credentials: {
-    accessKeyId: process.env.DYNAMO_ACCESS_KEY,
-    secretAccessKey: process.env.DYNAMO_SECRET_KEY,
-  }
+  region: process.env.AWS_REGION,
+  credentials: fromNodeProviderChain(),
 });
 
 export async function POST() {

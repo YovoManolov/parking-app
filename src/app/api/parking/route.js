@@ -1,12 +1,11 @@
 import { DynamoDBClient, ScanCommand, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
+
 
 // AWS DynamoDB Setup
 const dynamoDB = new DynamoDBClient({
     region: process.env.DYNAMO_REGION,
-    credentials: {
-      accessKeyId: process.env.DYNAMO_ACCESS_KEY,
-      secretAccessKey: process.env.DYNAMO_SECRET_KEY,
-    } 
+    credentials: fromNodeProviderChain(), 
 });
 
 export async function GET() {
@@ -14,6 +13,7 @@ export async function GET() {
 
   try {
     console.log("Current Credentials:", dynamoDB.config.credentials);
+    console.log("Resolved AWS Credentials:", await dynamoDB.config.credentials());
     
     const command = new ScanCommand(params);
     const data = await dynamoDB.send(command);
@@ -46,6 +46,8 @@ export async function POST(req) {
 
   try {
     console.log("Current Credentials:", dynamoDB.config.credentials);
+    console.log("Resolved AWS Credentials:", await dynamoDB.config.credentials());
+
     const command = new UpdateItemCommand(params);
     await dynamoDB.send(command);
     return Response.json({ message: `Parking spot ${id} updated to ${newStatus}` });
