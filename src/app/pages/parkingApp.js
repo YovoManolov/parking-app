@@ -38,6 +38,10 @@ export default function ParkingApp() {
   };
 
   return (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+    
+    <h1 className="title">Infosys Parking</h1>
+    
     <div style={{
       display: "grid",
       gridTemplateColumns: "repeat(3, 1fr)",
@@ -65,6 +69,7 @@ export default function ParkingApp() {
         P8 ({parkingStatus["P8"]})
       </div>
     </div>
+  </div>
   );
 }
 
