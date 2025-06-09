@@ -51,10 +51,11 @@ export default function ParkingApp() {
       margin: "auto",
       padding: "20px",
     }}>
+      
       {/* First Row */}
-      <div style={slotStyle(parkingStatus["P1"])} onClick={() => toggleStatus("P1")}>3.063 ({parkingStatus["P1"]})</div>
-      <div style={slotStyle(parkingStatus["P2"])} onClick={() => toggleStatus("P2")}>3.062 ({parkingStatus["P2"]})</div>
-      <div style={slotStyle(parkingStatus["P3"])} onClick={() => toggleStatus("P3")}>3.061 ({parkingStatus["P3"]})</div>
+      <div style={{ ...slotStyle(parkingStatus["P1"]), marginBottom: "28px" }} onClick={() => toggleStatus("P1")}>3.063 ({parkingStatus["P1"]})</div>
+      <div style={{ ...slotStyle(parkingStatus["P2"]), marginBottom: "28px" }} onClick={() => toggleStatus("P2")}>3.062 ({parkingStatus["P2"]})</div>
+      <div style={{ ...slotStyle(parkingStatus["P3"]), marginBottom: "28px" }} onClick={() => toggleStatus("P3")}>3.061 ({parkingStatus["P3"]})</div>
 
 
       {/* Second Row */}
