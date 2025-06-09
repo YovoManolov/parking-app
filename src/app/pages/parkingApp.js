@@ -52,21 +52,25 @@ export default function ParkingApp() {
       padding: "20px",
     }}>
       {/* First Row */}
-      <div style={slotStyle(parkingStatus["P1"])} onClick={() => toggleStatus("P1")}>P1 ({parkingStatus["P1"]})</div>
-      <div style={slotStyle(parkingStatus["P2"])} onClick={() => toggleStatus("P2")}>P2 ({parkingStatus["P2"]})</div>
-      <div style={slotStyle(parkingStatus["P3"])} onClick={() => toggleStatus("P3")}>P3 ({parkingStatus["P3"]})</div>
+      <div style={slotStyle(parkingStatus["P1"])} onClick={() => toggleStatus("P1")}>3.063 ({parkingStatus["P1"]})</div>
+      <div style={slotStyle(parkingStatus["P2"])} onClick={() => toggleStatus("P2")}>3.062 ({parkingStatus["P2"]})</div>
+      <div style={slotStyle(parkingStatus["P3"])} onClick={() => toggleStatus("P3")}>3.061 ({parkingStatus["P3"]})</div>
+
 
       {/* Second Row */}
-      <div style={slotStyle(parkingStatus["P4"])} onClick={() => toggleStatus("P4")}>P4 ({parkingStatus["P4"]})</div>
-      <div style={slotStyle(parkingStatus["P5"])} onClick={() => toggleStatus("P5")}>P5 ({parkingStatus["P5"]})</div>
-      <div style={slotStyle(parkingStatus["P6"])} onClick={() => toggleStatus("P6")}>P6 ({parkingStatus["P6"]})</div>
+      <div style={slotStyle(parkingStatus["P4"])} onClick={() => toggleStatus("P4")}>3.051 ({parkingStatus["P4"]})</div>
+      <div style={slotStyle(parkingStatus["P5"])} onClick={() => toggleStatus("P5")}>3.050 ({parkingStatus["P5"]})</div>
+      <div style={slotStyle(parkingStatus["P6"])} onClick={() => toggleStatus("P6")}>3.049 ({parkingStatus["P6"]})</div>
 
       {/* Third Row - Larger Blocks */}
-      <div style={{ ...slotStyle(parkingStatus["P7"]), gridColumn: "span 2" }} onClick={() => toggleStatus("P7")}>
-        P7 ({parkingStatus["P7"]})
+      <div style={{ ...slotStyle(parkingStatus["P8"]), gridColumn: "span 2" }} onClick={() => toggleStatus("P8")}>
+        3.052 ({parkingStatus["P8"]})
       </div>
-      <div style={{ ...slotStyle(parkingStatus["P8"]), gridColumn: "span 1" }} onClick={() => toggleStatus("P8")}>
-        P8 ({parkingStatus["P8"]})
+      <div style={{ ...slotStyle(parkingStatus["P7"]), gridRow: "span 2" }} onClick={() => toggleStatus("P7")}>
+        3.049A ({parkingStatus["P7"]})
+      </div>
+      <div style={{ ...slotStyle(parkingStatus["P9"]), gridColumn: "span 2" }} onClick={() => toggleStatus("P9")}>
+        3.053 ({parkingStatus["P9"]})
       </div>
     </div>
   </div>
